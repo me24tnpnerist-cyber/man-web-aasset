@@ -1,0 +1,535 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@300;500&display=swap');
+
+  .stark-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #0a0505; 
+    background-image: 
+      linear-gradient(0deg, rgba(20, 0, 0, 0.8) 0%, rgba(10, 5, 5, 0.9) 100%),
+      url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48ZyBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMyMjIiIGZpbGwtb3BhY2l0eT0iMC40Ij48cGF0aCBkPSJNMCAwaDQwdjQwSDBWMHphMSAxIDAgMCAxIDEgMXYzOGEyIDEgMCAwIDEtMSAxVjB6bTIwIDIwaDIwdjIwSDIwVjIwem0wIDBoMjB2MjBIMjBWMjB6TTIwIDBoMjB2MjBIMjBWMHpNMCAyMGgyMHYyMEgwVjIwek0wIDIwaDIwdjIwSDBWMjB6Ii8+PC9nPjwvZz48L3N2Zz4=');
+    font-family: 'Roboto Mono', monospace;
+    border: 2px solid #2a0a0a;
+    box-shadow: 0 0 20px rgba(200, 16, 46, 0.2); 
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .stark-header {
+    text-align: center;
+    padding: 30px 20px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #fdb813; 
+    position: relative;
+  }
+
+  .stark-header::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 50px;
+    height: 10px;
+    background: #0a0505;
+    transform: skewX(45deg);
+    border-right: 2px solid #fdb813;
+  }
+
+  .stark-header h2 {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px rgba(253, 184, 19, 0.6); 
+  }
+  
+  .stark-header h2::before { content: "> "; color: #c8102e; }
+  .stark-header h2::after { content: " <"; color: #c8102e; }
+
+  .stark-row {
+    display: flex;
+    align-items: center;
+    padding: 25px;
+    background: rgba(30, 5, 5, 0.6); 
+    margin-bottom: 15px;
+    border: 1px solid #4a1010; 
+    clip-path: polygon(0 0, 97% 0, 100% 15%, 100% 100%, 3% 100%, 0 85%);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stark-row:hover {
+    background: rgba(60, 10, 15, 0.7); 
+    border-color: #fdb813; 
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(253, 184, 19, 0.2);
+  }
+  
+  .stark-row::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(transparent, rgba(253, 184, 19, 0.15), transparent);
+    transition: none;
+  }
+  
+  .stark-row:hover::after {
+    top: 100%;
+    transition: top 1s linear;
+  }
+
+  .stark-image {
+    flex-shrink: 0;
+    width: 150px;
+    height: 180px;
+    margin-right: 40px;
+    border: 2px solid #4a1010;
+    position: relative;
+    padding: 5px;
+    background: #000;
+  }
+
+  .stark-image::before, .stark-image::after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border: 2px solid #fdb813;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+  }
+  .stark-row:hover .stark-image::before, 
+  .stark-row:hover .stark-image::after { opacity: 1; }
+
+  .stark-image::before { top: -5px; left: -5px; border-right: none; border-bottom: none; }
+  .stark-image::after { bottom: -5px; right: -5px; border-left: none; border-top: none; }
+
+  .stark-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    filter: grayscale(10%) contrast(110%);
+  }
+
+  .stark-details {
+    flex-grow: 1;
+  }
+
+  .stark-details h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    margin: 0 0 10px 0;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  .stark-role {
+    font-size: 14px;
+    color: #fdb813; 
+    margin: 0 0 15px 0;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-shadow: 0 0 8px rgba(200, 16, 46, 0.8); 
+  }
+  
+  .stark-data {
+    font-size: 13px;
+    color: #a0a0a0;
+    margin: 6px 0;
+  }
+  .stark-data span { color: #c8102e; font-weight: bold; }
+
+  @media (max-width: 768px) {
+    .stark-row {
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+      clip-path: polygon(0 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%);
+    }
+    
+    .stark-image {
+      margin-right: 0;
+      margin-bottom: 20px;
+      width: 120px;
+      height: 150px;
+    }
+  }
+</style>
+
+<div class="stark-container">
+  <!-- Header -->
+  <div class="stark-header">
+    <h2>EXECUTIVE BODY 26-27</h2>
+  </div>
+
+  <!-- MAN Coordinators -->
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh7-rt.googleusercontent.com/sitesz/AClOY7p9u2PvN46J6lMgpgUlf5f7Ljaa9uT9Y9qvJfYVP7GBtIQPRCalffhPoex14ajSPpUn5zLMWDWgNOpQUtW9fYJZKz6dJyvz-dhQKv46xjtF7TrZhbMTKmILA8HgC8XooyH1vxe-u-JOcOLSbmmYjMjUhzTuFDJMypIcGp5-WiC1HPjnw4LO1iWWrU-KTa3l=s2048?key=4XLS9FVXeWTBZQrSXXxbOg" alt="Dr. Nabam Teyi">
+    </div>
+    <div class="stark-details">
+      <h3>DR. NABAM TEYI</h3>
+      <p class="stark-role">MAN Coordinator</p>
+    </div>
+  </div>
+
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUBnGLKpum6gQ9bjycE3TIxO1DnJ-rcJa3-atgtoaUZNCUgoGvdsyq-g5SUt3oGPYD_4cSVkipusrfOpayyviTba5MwE8SwIDcWarZltPMF6GqueSBJkttERzCaGOoci2yJpjNmpHkaj36t0WeqTgAvorNECfcYuIOjlBww8vRAx7jKbs7lmcNhpXu3To_DftpIkLmY1j4z2P4kZMV1NKqdUUQw424CTOCGZ=w1280"Dr. Nitish Kumar">
+    </div>
+    <div class="stark-details">
+      <h3>DR. NITISH KUMAR</h3>
+      <p class="stark-role">MAN Coordinator</p>
+    </div>
+  </div>
+
+  <!-- General Secretary -->
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUAesXCEy6CrU7hJN7tMe-i0KcfPF9jAt20jllZbR4Dg-iI_2gQ_-rWTX4atU-sNEEUBd_CJqFY_X0RbSrPIwIWbJY_PVNkQKfY1wlAwaiCKRsdHdaFdHl101m7J-J6X2uGFcoRi_Zst1f7m2g2MtsHK6S8-UqbaGBM19g3jgtCffHObTdSQ18djJBrf8UirxLArYbGhBu_PMLDOoRTU9a0=w1280"Dikshitav Hazarika">
+    </div>
+    <div class="stark-details">
+      <h3>DIKSHITAV HAZARIKA</h3>
+      <p class="stark-role">General Secretary</p>
+      <p class="stark-data"><span>Phone number:</span> +91 88228 33628</p>
+      <p class="stark-data"><span>Gmail:</span> dikshitavhazarika06@gmail.com</p>
+    </div>
+  </div>
+
+  <!-- Assistant General Secretaries -->
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUDRaCnN_PEPvi0ZM3PeJkACn876dUHAf13J7E-CWeaEj8mttDiuuGDrS8qRhb9qmi8sjwZMtpTZFin_0poGI7J6qhP8aScGhxWk75ozICeu8eGhtAz7qRVJaK5XSifWHbL5k9ZYQiNpRnbL4wdgzchH0qyiC3yUcuv7GS9alLEG_UBak7zegBn2-bejnYTuqBRIXUX2T8kqque36jxthG9S5oEdHsuYwMiT=w1280"Dibarpan Das">
+    </div>
+    <div class="stark-details">
+      <h3>DIBARPAN DAS</h3>
+      <p class="stark-role">Assistant General Secretary</p>
+      <p class="stark-data"><span>Phone number:</span> +91 98633 60116</p>
+      <p class="stark-data"><span>Gmail:</span> dibarpandas@gmail.com</p>
+    </div>
+  </div>
+
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUB6fLplerg0xWv_1-DFaV9e09CGItG88iv0qUd8vbjAeG-GrDahPEwTOwjbHmeDU-dixqSsTpv0lDRqpPa-gK8FeXfA0BK5d7FLvbdEvXfa73pBxSqJRU0Xscb3X7sa2Ii49tNjhT4DtZadXqaxtLq1lUS_QOoVtsoQ0FmI331bggNCqTKp9Rd2-WGDJZMj2uVCj19TWK7IFgAPLGeoccXi8swaR5POYDxs_os=w1280" alt="Swastyayana Shreyam Saikia">
+    </div>
+    <div class="stark-details">
+      <h3>SWASTYAYANA SHREYAM SAIKIA</h3>
+      <p class="stark-role">Assistant General Secretary</p>
+      <p class="stark-data"><span>Phone number:</span> +91 94355 06198</p>
+      <p class="stark-data"><span>Gmail:</span> swastyayanashreyam@gmail.com</p>
+    </div>
+  </div>
+
+  <!-- Finance -->
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUApq_l26ghi2DLrn0FzF8ivzT25V39iZ_jqk6TIPDuzXS3_OwoyY9h16TJvTAalNTgDY42a2BBsFMPco82i7Oc6QbO0ZlWArk-jkSI5XuufeptDk1IfXU3ap8ipG4GtIQ1xewwj0RnSyMec-TYeVhWSCDC041T9cKsVuZjXeiEmpgzEEdpvRUtFQ45wTLl6KAC9H9YiuZNBz28P4BQ9jAqZ1Yd093Si_gvKoLA=w1280" alt="Soumyaditya Datta">
+    </div>
+    <div class="stark-details">
+      <h3>SOUMYADITYA DATTA</h3>
+      <p class="stark-role">Finance Secretary</p>
+      <p class="stark-data"><span>Phone number:</span> +91 87878 84571</p>
+      <p class="stark-data"><span>Gmail:</span> soumyadityadatta56@gmail.com</p>
+    </div>
+  </div>
+
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUDzkQYNIZzOx7X6Ef-2xXtdjJCjxGq4yR5cgysTGLMCSNIQZYNB3q8TItTpSptlbFItZZUOAzTwNTuFPS_j_R9adLwE5ibVMKqShRyrwPTwqnFuLsGXfRAZJphxaEwLOAPreH_80yRGHxfYU-Za-b91InaZEoBZm8wpGPm6ttzkvos3S4mjayRoL-c9-gX6ndVBcy83UJ-2f_T7XA9Hp9s3zy4bqsnq5Td-=w1280" alt="Krishna Singh">
+    </div>
+    <div class="stark-details">
+      <h3>KRISHNA SINGH</h3>
+      <p class="stark-role">Asst. Finance Secretary</p>
+      <p class="stark-data"><span>Phone number:</span> +91 62057 18446</p>
+      <p class="stark-data"><span>Gmail:</span> krrishna984@gmail.com</p>
+    </div>
+  </div>
+
+  <!-- Organizing Secretaries -->
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUA00xHgiA8gzz0l7HAKVqQ2n9i-YPB25Ole2UZcxjhxFf1SB5Uw7wrRt6DtPW7lnGoso9wfaKhc6eqq6Jetu7gA7z9AIOEI2xm-aOVxYLuWLlK6O9x70YVUWqLWrumV8kkl48CCe1cVXiWcKeTyOkoaTxD2QPXYmJa6Jti6HT0CIh1QdiKFtVfxpiRHjuION7yfdBs4zgjR2jNL7c9DZiKUEt0WGhVtH5iQlww=w1280" alt="Sudipta Gogoi">
+    </div>
+    <div class="stark-details">
+      <h3>SUDIPTA GOGOI</h3>
+      <p class="stark-role">Organizing Secretary</p>
+      <p class="stark-data"><span>Phone number:</span> +91 60007 65840</p>
+      <p class="stark-data"><span>Gmail:</span> sudiptagogoi2006@gmail.com</p>
+    </div>
+  </div>
+
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUALdgAg9e7VWaO713FrVdVoewYupD4jqsaKJHRP45bTfJM3_kPptjNJwn6XeBVi4vhICyVlHz_puDsi2ksxgjSgo-AopmJvbEyKu2IgL3ohpVwMBmfrB9eM7R7NQ9xafNIuNJetPPyXlzAOJal5ohHVJvM7Lolg4GzkfT-pl_SDaNbKAJniMymDveZq4lHUY8FXff9QV55xnkEbFp5uRmMRk-FkE2hvwS9e=w1280" alt="Kamal Borah">
+    </div>
+    <div class="stark-details">
+      <h3>KAMAL BORAH</h3>
+      <p class="stark-role">Organizing Secretary</p>
+      <p class="stark-data"><span>Phone number:</span> +91 98648 77567</p>
+      <p class="stark-data"><span>Gmail:</span> kamallochanborah2@gmail.com</p>
+    </div>
+  </div>
+
+  <!-- Auditor -->
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUCf_XoUOS1QrYLly89SghPZKa6mDhAFg5BrqyGuvJF5Vm8xVts0L7HDE0vs6t8L9ZKwLEC4nQe6-YsFz9ZmeGiw9uf1ZoIcOOZjYZXsYGS3MfQ_EVu6yGWJv1RAO4i_aeqpYz5j-Q8Bg5IB06ks9XF9w9lDBm2WZFBOhBwtsID4MzaOH17jPSDlnGGsW8LbjSyFTsJxQog-t05qvY2DoRtz87HH3zDaiqQtcU0=w1280" alt="Divya Prakash">
+    </div>
+    <div class="stark-details">
+      <h3>DIVYA PRAKASH</h3>
+      <p class="stark-role">Auditor</p>
+      <p class="stark-data"><span>Phone number:</span> +91 80923 19890</p>
+      <p class="stark-data"><span>Gmail:</span> divyaprakash3705@gmail.com</p>
+    </div>
+  </div>
+
+  <!-- Creative Heads -->
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUAMBsrv7v6z-yUX0MeVPtSDmL4syMWsH8KqFp27pfZ90oKpqKSm-Mq7vGWsZp4KmvwZu_nXiNgiOGr63DDJxrIpqVtAzVQBcdIkTSC4BtWRm9UtIHwL2eDqQPTSjWE8dQIQO2bRXBV5bkkbb15dBKUnQuO1SD1Fzf41njpFe3lADQPPce3mOWizOUm-RbnNv0HCpe-z9Y8c8QxDMn_aDf6TQXUZtrU_Ts_U_Uo=w1280" alt="Dukmali Debbarma">
+    </div>
+    <div class="stark-details">
+      <h3>DUKMALI DEBBARMA</h3>
+      <p class="stark-role">Creative Head</p>
+      <p class="stark-data"><span>Phone number:</span> +91 70852 43857</p>
+      <p class="stark-data"><span>Gmail:</span> debbarmadukmali52@gmail.com</p>
+    </div>
+  </div>
+
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUBR0oMYkaQpUmLP8-4GU5tlJUDZFNJ7hJahZneJssn4dCYt8zhC1lqHiHja80zkh2d-YakFwPuE57kVbQovWhEmUwha2ASuE8dFm3Ir88i_-4XYFv61expaW6nHiRZRCiFIsbEK5AXM1EzuVW9MsiqZi0K8Sm9F0FqIKslr5gUgMVC-OmGy83D3sU2GUFdmFKI9wHCDuQi4aRSq4hKTw8La0HdsVnp97PoHD-M=w1280" alt="Debadyoti Kurmi">
+    </div>
+    <div class="stark-details">
+      <h3>DEBADYOTI KURMI</h3>
+      <p class="stark-role">Creative Head</p>
+      <p class="stark-data"><span>Phone number:</span> +91 75788 20169</p>
+      <p class="stark-data"><span>Gmail:</span> d788674@gmail.com</p>
+    </div>
+  </div>
+
+  <!-- Info & Pub Secretaries -->
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUB8AIMbRHUt12yGVBG4Gz5YY-ZeWdz_KFMNHjV_URTrgDlNQtfJuABQGRzIz-icrRW4WZZLi362ou5gELHePu4yN5nxknv-0P4zdMb5_PQXUlbzxE-0F_YK2V9CY0ekYPCgP7YpvficK_IQbDUXuxLSy3Va8xWSWe8fZHfPplqvMkSbzvlFtaqi9oNyO8L9oEJfzNxlDiNeDayVlZ8ET1G09Xjj3Wlvs0mCl3g=w1280" alt="Sidharth Kumar">
+    </div>
+    <div class="stark-details">
+      <h3>SIDHARTH KUMAR</h3>
+      <p class="stark-role">Info & Pub Secretary</p>
+      <p class="stark-data"><span>Phone number:</span> +91 77396 33389</p>
+      <p class="stark-data"><span>Gmail:</span> Sidharthk16205@gmail.com</p>
+    </div>
+  </div>
+
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUCYRIIYFBpruL_hQpOro_4LcCvgH3TZ2fFbdsBeGw1GV85QmBgYFdEJTph5jPSCdEwwccVvTRZ-OTz-bwLUwZCprbWroTtlBYkkUrTto_gMWTLppXyjb2ZEGh-tW_FV8M9F0QC1_zSybN7UL03qarMbHKcI-1Is3sxNb8uR4Hu2XBECv1b8F2uSP4UIMZg-B_0Oi3P0QimkZOqBCs0zgO-0S8fu9d7WULmzQZ8=w1280" alt="Pintu Ram">
+    </div>
+    <div class="stark-details">
+      <h3>PINTU RAM</h3>
+      <p class="stark-role">Info & Pub Secretary</p>
+      <p class="stark-data"><span>Phone number:</span> +91 60019 40920</p>
+      <p class="stark-data"><span>Gmail:</span> michaelbabua420@gmail.com</p>
+    </div>
+  </div>
+
+  <!-- Convenor -->
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUCSGHqzwYI2lBQ5BMR1857Gq0X90tTVNd8XYIBEhVCWe_TequqzutmbnfQjzm5PFAa_RBa-10SdqCJ8ZivUhUM3iUz71GYv220YcoOoEhIVF6f1DXX82cH8p8FJpmbcCI1gboBL4GFc_dncjQacvfV5ZwC5XSxZY80PJ6pAry10rS4hemZ-gzV2CAVLSV9GmhWnDTOvXJO4XqVe60k8tmzGRwh1io7aNnE7IRk=w1280" alt="Saptarshi Manik">
+    </div>
+    <div class="stark-details">
+      <h3>SAPTARSHI MANIK</h3>
+      <p class="stark-role">Convenor</p>
+      <p class="stark-data"><span>Phone number:</span> +91 60093 70658</p>
+      <p class="stark-data"><span>Gmail:</span> Saptarshimanik716@gmail.com</p>
+    </div>
+  </div>
+
+  <!-- Girl's Representative -->
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="REPLACE_WITH_IMAGE_URL" alt="Sneha Sharma">
+    </div>
+    <div class="stark-details">
+      <h3>SNEHA SHARMA</h3>
+      <p class="stark-role">Girl's Representative</p>
+      <p class="stark-data"><span>Phone number:</span> +91 93872 10535</p>
+      <p class="stark-data"><span>Gmail:</span> sharmasneha74326@gmail.com</p>
+    </div>
+  </div>
+
+  <!-- Refreshment In-Charges -->
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUAnEofK1i8UNC2glvtIqJJrPWUH6M5jiAQH0klfOx02wsULbYtN69w-w5VrOG8gnDock5a67M0MraZ5MTkgbwHr7e5xFRnAScNu4v7ljVMa3s8j0zlxP8jBAxrZ_BYe0y3VbAi4LFUjqJ3xEoY-_mLuVVfRX6LAaZ5MnG1IZZMHWlsyidnCFTDY2aIHj4NodKVfX-69E64Z7-yD1JKTklGj-0b_OZTSyP02eQ0=w1280" alt="Utsav Kumar">
+    </div>
+    <div class="stark-details">
+      <h3>UTSAV KUMAR</h3>
+      <p class="stark-role">Refreshment In-Charge</p>
+      <p class="stark-data"><span>Phone number:</span> +91 98357 26600</p>
+      <p class="stark-data"><span>Gmail:</span> utsavroy2004@gmail.com</p>
+    </div>
+  </div>
+
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="REPLACE_WITH_IMAGE_URL" alt="Tana Tagu Tara">
+    </div>
+    <div class="stark-details">
+      <h3>TANA TAGU TARA</h3>
+      <p class="stark-role">Refreshment In-Charge</p>
+      <p class="stark-data"><span>Phone number:</span> PENDING</p>
+      <p class="stark-data"><span>Gmail:</span> PENDING</p>
+    </div>
+  </div>
+
+  <!-- Hospitality In-Charges -->
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUAJ-ILZLVkgVYpQTxXaMA29S5mJdC1YJdoJXSwN50yBsggMm6KPt1gXuffU297EHQT0mDCHbPXab8A6Nfx-_IaY95BAR8U45keYvaavBaVR9lZcPbWdmJojtin0VFkHNTS9iqK4nuN97dsduC8Jwwt4G87JgMN-XOpx7GHNWX-JoE7_G81BAn_JfDtt4lDK6NubKVlM90vznrZXptH3j55QjMKk5567Kr61WI8=w1280" alt="Tage Ronya">
+    </div>
+    <div class="stark-details">
+      <h3>TAGE RONYA</h3>
+      <p class="stark-role">Hospitality In-Charge</p>
+      <p class="stark-data"><span>Phone number:</span> +91 87988 64407</p>
+      <p class="stark-data"><span>Gmail:</span> anutage14@gmail.com</p>
+    </div>
+  </div>
+
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUDfFGQESBwdkB90al1TpSNuk1R2kvHisqFHq0MpqYfflQs3dxfapspif5FvFenYz4eEVuGbRh0tdLCj5BDq8vKl4vw2yAFmbcmKDjXknj-OY0cxKk5YT1UAyQag6P7dRs9JWhEGOKlut-42sgcIl8mu0JewRdKObSs3Is_xMNdFUPQBQwyCDkPA1KsTUc7K1cgpBjplYwk8FsV796uLYlhlqzRC2NrU-6nbDLI=w1280" alt="Rani Kumari">
+    </div>
+    <div class="stark-details">
+      <h3>RANI KUMARI</h3>
+      <p class="stark-role">Hospitality In-Charge</p>
+      <p class="stark-data"><span>Phone number:</span> +91 82107 52881</p>
+      <p class="stark-data"><span>Gmail:</span> czarinasingh80@gmail.com</p>
+    </div>
+  </div>
+
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUD8hN4IcFm3snyN7HBVdHg15sN2BLjgWFz13Fq5iUw6ymjT3I3eimE-Rp7-IGvOYzizIu0BuHg3mg-YrrljSvAiyuI47Mis_wxdM0_yHkcTtQOQ9uHxpEHzi9KMZS-sJ--Dnd0MjXWjhhllRAr46eYn2Q8ska9yszQTN7BelugIdh84gbELCbgZNIWkQ2QOHR9C0vdEfNhI_nXw_L0UPc4pb5H6SUwcoV0Jv3Q=w1280" alt="Ayusha Chettri">
+    </div>
+    <div class="stark-details">
+      <h3>AYUSHA CHETTRI</h3>
+      <p class="stark-role">Hospitality In-Charge</p>
+      <p class="stark-data"><span>Phone number:</span> +91 78650 87979</p>
+      <p class="stark-data"><span>Gmail:</span> ayushachettri9@gmail.com</p>
+    </div>
+  </div>
+
+  <!-- Magazine In-Charges -->
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUAmPN-pdClDWlNN-hQwlJK_l1_VSGOS63BaZA9QHUn5Gw7VYiPrhoFmGhqNrORduMEHza1D21nv2GVMfO1YbPpNHvBKfLI2Yh-hvBwpFm6Z4ZMvcKd1ZbFPIeHAqwcjUSeDAihcTWMKfjL-US0-ZllS-pp-4tutVxUCRrDiwz2UiiWpoSnYahk-cqkP6Q0F4HT9UxkZxvvcDpK1LxxtHI1fxT7sOqKTeCsSnqE=w1280" alt="Bittu Kumar Prasad">
+    </div>
+    <div class="stark-details">
+      <h3>BITTU KUMAR PRASAD</h3>
+      <p class="stark-role">Magazine In-Charge</p>
+      <p class="stark-data"><span>Phone number:</span> +91 99315 19364</p>
+      <p class="stark-data"><span>Gmail:</span> bittukunarp2003@gmail.com</p>
+    </div>
+  </div>
+
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="REPLACE_WITH_IMAGE_URL" alt="Anuj Das">
+    </div>
+    <div class="stark-details">
+      <h3>ANUJ DAS</h3>
+      <p class="stark-role">Magazine In-Charge</p>
+      <p class="stark-data"><span>Phone number:</span> PENDING</p>
+      <p class="stark-data"><span>Gmail:</span> PENDING</p>
+    </div>
+  </div>
+
+  <!-- T&P In-Charges -->
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUDV7DZVhD0CMRkMXVs3QtxImngK_0Q5D4Jk2gDVp5sUfS5-Y4LZzpuC0WrDMOIfcUbRaS7O3jZjrpPn7V7OJva-mtAqnPhZ4itV6vkFfaqybQcsiEcaN42pmG5u5RQDU4qaLevy0Khr45U-MbUCJAqB2NW8GMMS_mPKvxDL2wBZHhiSlOGSgRRjlWly6Ji5tgS1e456f8t2XMFbOlWCMYMBYfvuosF8oZLX=w1280" alt="Bhaskar Newpany">
+    </div>
+    <div class="stark-details">
+      <h3>BHASKAR NEWPANY</h3>
+      <p class="stark-role">T&P In-Charge</p>
+      <p class="stark-data"><span>Phone number:</span> +91 70029 14100</p>
+      <p class="stark-data"><span>Gmail:</span> newpanybhaskar@gmail.com</p>
+    </div>
+  </div>
+
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUDHL-qTMVP_xiD-EiFQpZMxbKuVvFs8MkvqjgN2uHKTg4KBKSFy6H-gy-LlVwpP0GIkXVrKuhAh106zLldTv31En38qG1kfKsNvrdODAYuthV7voun8TdSEpW2kY96SbQuw2vYnrRY5PkspkjnqRJoQ7_6yMqCrqvbOP6hANqZJHSxNJIXxtyHogV38aFYVABveDrNslQlY0ZDGhgmoIxx2jwh4QqCwoFdmAfA=w1280" alt="Samarth Kaushal">
+    </div>
+    <div class="stark-details">
+      <h3>SAMARTH KAUSHAL</h3>
+      <p class="stark-role">T&P In-Charge</p>
+      <p class="stark-data"><span>Phone number:</span> +91 82192 54065</p>
+      <p class="stark-data"><span>Gmail:</span> samarth017344@gmail.com</p>
+    </div>
+  </div>
+
+  <!-- Decoration In-Charges -->
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUAKcsZGcIMzbCkwCJlYDX_3789bZvLrOrzhDA34MpGDOPdWMoRlSaGhhLZyIQQCZhfjTC1ttOPQaZIUNrwyrRTkHxGDwhuYfk80J_LV7MwAnwrFEf1AW_ux4sjW8D8cCU-e-AGHKDMtmFqlIhTjCUYg_8q896AsE713KjaF232ks_78sWrTo7O8YRNW5W1aL4HMrlnh-ehDPW6h5UMqZnrv4_ucMnmcti8jX8Y=w1280" alt="Tongbram Ranjan Singh">
+    </div>
+    <div class="stark-details">
+      <h3>TONGBRAM RANJAN SINGH</h3>
+      <p class="stark-role">Decoration In-Charge</p>
+      <p class="stark-data"><span>Phone number:</span> +91 93621 11418</p>
+      <p class="stark-data"><span>Gmail:</span> ranjantongbram198@gmail.com</p>
+    </div>
+  </div>
+
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUCDegW521oa3QfCfhTe7YtCI9jDC0soM7TkCAwUZ2jdvEwpnjmZDkwGVXjG4p_Tvtz7ZGavwPxGFgEFL6Bj4SFIEkHLJ4-f-J558n7eKg56aB1mSzRbwIMJ_wjO1jVp-fGMnCp8XnKfyg0SwqYHnL2eHQl7NbQa7W6KoovVBWZuik_FT_3HXsSfbe0ymTJDQQwdhEf53eYPFtPSl2SYpeERFKCKgpCfdd1w8j8=w1280" alt="Nitish Oinam">
+    </div>
+    <div class="stark-details">
+      <h3>NITISH OINAM</h3>
+      <p class="stark-role">Decoration In-Charge</p>
+      <p class="stark-data"><span>Phone number:</span> +91 70056 76431</p>
+      <p class="stark-data"><span>Gmail:</span> nitishoinam973@gmail.com</p>
+    </div>
+  </div>
+
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUB88HnC7Q6iATTZlMtmqJD7PIE7KCwMassD_P1Lx799Gos3wWR0CqI6z2RWl1M-9RobZYFid1csT7iV3g_TFPGC0mEZyQlOimRLti-Rg6qpWrgYlkzx3oe536Bkvq97SFccpq0-x-bixRjqeECqH-fAn9o737DZjDbluQmILkZUW69SLIEzjfSP_8SLmvuxPKAIq2aHLVokBM7hZhnfd2sWE-PQyBzEE7Q6=w1280" alt="Johnson Heisnam">
+    </div>
+    <div class="stark-details">
+      <h3>JOHNSON HEISNAM</h3>
+      <p class="stark-role">Decoration In-Charge</p>
+      <p class="stark-data"><span>Phone number:</span> +91 93780 33572</p>
+      <p class="stark-data"><span>Gmail:</span> johnsonheisnam2003@gmail.com</p>
+    </div>
+  </div>
+
+  <!-- Advisor -->
+  <div class="stark-row">
+    <div class="stark-image">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUCq4JivVqur6g35muTS3dEBpJHUzO7ncQ-io_9qX5C8YWWr8CPGtke4u9dtH1Uc1VWAtPwPJWAxYgXMQ8JaLfGB74EEz-7E2xXZxCgobLFpTB3EA0lzpMXNEb4J4aIzrh_8lcrK8y5Z9vCT_A0FTPrb3z18eeBXX_vBc9O1Clear3uyH_WvSZxkDhFi2tgD6bse7ZzCfFvUdWJuvT0Oy5WWYgCzqB2BzLfT=w1280" alt="Manish Darjee">
+    </div>
+    <div class="stark-details">
+      <h3>MANISH DARJEE</h3>
+      <p class="stark-role">Advisor</p>
+      <p class="stark-data"><span>Phone number:</span> +91 70029 75820</p>
+      <p class="stark-data"><span>Gmail:</span> rajkumardarjee08@gmail.com</p>
+    </div>
+  </div>
+
+</div>
