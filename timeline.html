@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Futuristic Events Timeline</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@300;500&display=swap');
+
+  body {
+    background-color: #0a0505;
+    margin: 0;
+    padding: 20px 0;
+    font-family: 'Roboto Mono', monospace;
+  }
+
+  .timeline-wrapper {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #0a0505;
+    background-image: linear-gradient(0deg, rgba(20, 0, 0, 0.8) 0%, rgba(10, 5, 5, 0.9) 100%),
+      url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48ZyBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMyMjIiIGZpbGwtb3BhY2l0eT0iMC40Ij48cGF0aCBkPSJNMCAwaDQwdjQwSDBWMHphMSAxIDAgMCAxIDEgMXYzOGEyIDEgMCAwIDEtMSAxVjB6bTIwIDIwaDIwdjIwSDIwVjIwem0wIDBoMjB2MjBIMjBWMjB6TTIwIDBoMjB2MjBIMjBWMHpNMCAyMGgyMHYyMEgwVjIwek0wIDIwaDIwdjIwSDBWMjB6Ii8+PC9nPjwvZz48L3N2Zz4=');
+    border: 2px solid #2a0a0a;
+    box-shadow: 0 0 20px rgba(200, 16, 46, 0.2);
+    padding: 40px 20px;
+    box-sizing: border-box;
+  }
+
+  .timeline-header {
+    text-align: center;
+    padding: 0 20px 40px 20px;
+    position: relative;
+  }
+
+  .timeline-header h2 {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px rgba(253, 184, 19, 0.6);
+  }
+
+  .timeline-header h2::before { content: "> "; color: #c8102e; }
+  .timeline-header h2::after { content: " <"; color: #c8102e; }
+
+  /* The actual timeline */
+  .timeline {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  /* The central glowing line */
+  .timeline::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background-color: #c8102e;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -2px;
+    box-shadow: 0 0 15px #c8102e, 0 0 5px #ff4d4d;
+  }
+
+  /* Container around content */
+  .timeline-node {
+    padding: 10px 40px;
+    position: relative;
+    background-color: inherit;
+    width: 50%;
+    box-sizing: border-box;
+  }
+
+  /* Place on left and right */
+  .left { left: 0; }
+  .right { left: 50%; }
+
+  /* The glowing circles on the timeline */
+  .timeline-node::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: -10px;
+    background-color: #fdb813;
+    border: 3px solid #0a0505;
+    top: 25px;
+    border-radius: 50%;
+    z-index: 1;
+    box-shadow: 0 0 15px #fdb813;
+  }
+
+  .right::after {
+    left: -10px;
+  }
+
+  /* Content Box */
+  .content {
+    padding: 25px;
+    background: rgba(30, 5, 5, 0.6);
+    position: relative;
+    border: 1px solid #4a1010;
+    clip-path: polygon(0 0, 95% 0, 100% 15%, 100% 100%, 5% 100%, 0 85%);
+    transition: all 0.3s ease;
+  }
+
+  .content:hover {
+    background: rgba(60, 10, 15, 0.7);
+    border-color: #fdb813;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(253, 184, 19, 0.2);
+  }
+
+  .content h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: #fdb813;
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
+
+  .content h2 {
+    font-family: 'Orbitron', sans-serif;
+    color: #ffffff;
+    margin: 0 0 15px 0;
+    font-size: 22px;
+    text-transform: uppercase;
+  }
+
+  .content p {
+    color: #a0a0a0;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .timeline::after {
+      left: 31px;
+    }
+    .timeline-node {
+      width: 100%;
+      padding-left: 70px;
+      padding-right: 25px;
+    }
+    .timeline-node::before {
+      left: 60px;
+      border: medium solid white;
+      border-width: 10px 10px 10px 0;
+      border-color: transparent white transparent transparent;
+    }
+    .left::after, .right::after {
+      left: 21px;
+    }
+    .right {
+      left: 0%;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="timeline-wrapper">
+  <div class="timeline-header">
+    <h2>Mission Logs</h2>
+  </div>
+
+  <div class="timeline">
+    
+    <!-- Item 1: Right -->
+    <div class="timeline-node right">
+      <div class="content">
+        <h3>UPCOMING</h3>
+        <h2>Annual Cultural Festival</h2>
+        <p>A multi-day showcase of innovation, art, and community engagement. Teams will collaborate to host technical displays and dynamic cultural performances.</p>
+      </div>
+    </div>
+
+    <!-- Item 2: Left -->
+    <div class="timeline-node left">
+      <div class="content">
+        <h3>APR 03 - 05, 2026</h3>
+        <h2>NERIST MUN 2026</h2>
+        <p>Delegates convened for an intensive three-day Model United Nations conference, engaging in complex diplomatic problem-solving and global policy debates.</p>
+      </div>
+    </div>
+
+    <!-- Item 3: Right -->
+    <div class="timeline-node right">
+      <div class="content">
+        <h3>JAN 23, 2026</h3>
+        <h2>Inaugural Astronaut Visit</h2>
+        <p>Successfully organized and executed the highly anticipated campus visit and inaugural program for Group Captain Shubanshu Shukla, inspiring the next generation of engineers.</p>
+      </div>
+    </div>
+
+    <!-- Item 4: Left -->
+    <div class="timeline-node left">
+      <div class="content">
+        <h3>DEC 2025</h3>
+        <h2>Drone Tech Training</h2>
+        <p>Completion of an intensive 5-day Drone Technology Training Program, focusing on advanced UAV mechanics, assembly, and autonomous flight operations.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
